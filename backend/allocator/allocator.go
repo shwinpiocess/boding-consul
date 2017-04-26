@@ -23,7 +23,7 @@ import (
 	"github.com/containernetworking/cni/pkg/ip"
 	"github.com/containernetworking/cni/pkg/types"
 	"github.com/containernetworking/cni/pkg/types/current"
-	"github.com/containernetworking/cni/plugins/ipam/host-local/backend"
+	"github.com/shwinpiocess/bonding-consul/backend"
 )
 
 type IPAllocator struct {
