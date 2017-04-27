@@ -176,8 +176,9 @@ func (a *IPAllocator) Get(id string) (*current.IPConfig, []*types.Route, error) 
 		return nil, nil, fmt.Errorf("requested IP address %q is not available in network: %s", requestedIP, a.conf.Name)
 	}
 
-	startIP, endIP := a.getSearchRange()
-	for cur := startIP; ; cur = a.nextIP(cur) {
+	// startIP, endIP := a.getSearchRange()
+	// for cur := startIP; ; cur = a.nextIP(cur) {
+	for cur := a.start; !cur.Equal(a.end); cur = a.nextIP(cur) {
 		// don't allocate gateway IP
 		if gw != nil && cur.Equal(gw) {
 			continue
