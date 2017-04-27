@@ -16,9 +16,7 @@ package allocator
 
 import (
 	"fmt"
-	"log"
 	"net"
-	"os"
 
 	"github.com/containernetworking/cni/pkg/ip"
 	"github.com/containernetworking/cni/pkg/types"
