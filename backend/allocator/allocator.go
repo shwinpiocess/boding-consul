@@ -198,9 +198,9 @@ func (a *IPAllocator) Get(id string) (*current.IPConfig, []*types.Route, error) 
 			return ipConfig, routes, nil
 		}
 		// break here to complete the loop
-		if cur.Equal(endIP) {
-			break
-		}
+		// if cur.Equal(endIP) {
+		// 	break
+		// }
 	}
 	return nil, nil, fmt.Errorf("no IP addresses available in network: %s", a.conf.Name)
 }
@@ -250,29 +250,29 @@ func (a *IPAllocator) nextIP(curIP net.IP) net.IP {
 }
 
 // getSearchRange returns the start and end ip based on the last reserved ip
-func (a *IPAllocator) getSearchRange() (net.IP, net.IP) {
-	var startIP net.IP
-	var endIP net.IP
-	startFromLastReservedIP := false
-	lastReservedIP, err := a.store.LastReservedIP()
-	if err != nil && !os.IsNotExist(err) {
-		log.Printf("Error retriving last reserved ip: %v", err)
-	} else if lastReservedIP != nil {
-		subnet := net.IPNet{
-			IP:   a.conf.Subnet.IP,
-			Mask: a.conf.Subnet.Mask,
-		}
-		err := validateRangeIP(lastReservedIP, &subnet, a.start, a.end)
-		if err == nil {
-			startFromLastReservedIP = true
-		}
-	}
-	if startFromLastReservedIP {
-		startIP = a.nextIP(lastReservedIP)
-		endIP = lastReservedIP
-	} else {
-		startIP = a.start
-		endIP = a.end
-	}
-	return startIP, endIP
-}
+// func (a *IPAllocator) getSearchRange() (net.IP, net.IP) {
+// 	var startIP net.IP
+// 	var endIP net.IP
+// 	startFromLastReservedIP := false
+// 	lastReservedIP, err := a.store.LastReservedIP()
+// 	if err != nil && !os.IsNotExist(err) {
+// 		log.Printf("Error retriving last reserved ip: %v", err)
+// 	} else if lastReservedIP != nil {
+// 		subnet := net.IPNet{
+// 			IP:   a.conf.Subnet.IP,
+// 			Mask: a.conf.Subnet.Mask,
+// 		}
+// 		err := validateRangeIP(lastReservedIP, &subnet, a.start, a.end)
+// 		if err == nil {
+// 			startFromLastReservedIP = true
+// 		}
+// 	}
+// 	if startFromLastReservedIP {
+// 		startIP = a.nextIP(lastReservedIP)
+// 		endIP = lastReservedIP
+// 	} else {
+// 		startIP = a.start
+// 		endIP = a.end
+// 	}
+// 	return startIP, endIP
+// }
